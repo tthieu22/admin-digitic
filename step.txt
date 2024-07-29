@@ -3,3 +3,23 @@ npm i react-router-dom
 npm i antd
 
 create layout with ant design
+*dashboard
+npm install @ant-design/charts --force
+
+form add 
+npm i react-quill
+npm install react-form-stepper --save
+
+npm install axios --force
+
+npm i yup --force
+npm install formik 
+npm install @reduxjs/toolkit react-redux --force 
+
+create app /store -> index.js import
+
+create util features / auth /authSlice  && authService
+configuration them
+
+util -> base_url : link localhost/api
+Yup use Warning

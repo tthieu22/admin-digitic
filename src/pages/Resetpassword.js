@@ -14,7 +14,7 @@ const Resetpassword = () => {
         className="my-5 w-25 bg-white rounded-3 p-3 mx-auto"
         style={{ margin: "-20% 0 0 0" }}
       >
-        <h4 className="text-center">Sign In</h4>
+        <h4 className="text-center title">Sign In</h4>
         <p className="text-center">Log in your account to continue</p>
         <form action="">
           <CustomInput type="password" label="Password" id="pass" />

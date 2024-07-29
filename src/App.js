@@ -5,6 +5,22 @@ import Login from "./pages/Login";
 import Forgotpassword from "./pages/Forgotpassword";
 import Resetpassword from "./pages/Resetpassword";
 import MainLayout from "./components/MainLayout";
+import Enquiries from "./pages/Enquiries";
+import Blog from "./pages/Blog";
+import BlogCatList from "./pages/Blogcatlist";
+import Orders from "./pages/Orders";
+import Customers from "./pages/Cutomers";
+import Colorlist from "./pages/Colorlist";
+import Categorylist from "./pages/Categorylist";
+import Brandlist from "./pages/Brandlist";
+import Productlist from "./pages/Productlist";
+import AddBlog from "./pages/AddBlog";
+import Addblogcat from "./pages/Addblogcat";
+import Addcolor from "./pages/Addcolor";
+import Addcat from "./pages/Addcat";
+import Addbrand from "./pages/Addbrand";
+import Addproduct from "./pages/Addproduct";
+
 function App() {
   return (
     <Router>
@@ -14,6 +30,21 @@ function App() {
         <Route path="/reset-password" element={<Resetpassword />} />
         <Route path="/admin" element={<MainLayout />}>
           <Route index element={<Dashboard />} />
+          <Route path="enquiries" element={<Enquiries />} />
+          <Route path="blog-list" element={<Blog />} />
+          <Route path="blog-category-list" element={<BlogCatList />} />
+          <Route path="blog-category" element={<Addblogcat />} />
+          <Route path="orders" element={<Orders />} />
+          <Route path="customer" element={<Customers />} />
+          <Route path="list-color" element={<Colorlist />} />
+          <Route path="color" element={<Addcolor />} />
+          <Route path="list-category" element={<Categorylist />} />
+          <Route path="list-brand" element={<Brandlist />} />
+          <Route path="product-list" element={<Productlist />} />
+          <Route path="category" element={<Addcat />} />
+          <Route path="blog" element={<AddBlog />} />
+          <Route path="brand" element={<Addbrand />} />
+          <Route path="product" element={<Addproduct />} />
         </Route>
       </Routes>
     </Router>
