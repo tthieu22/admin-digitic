@@ -1,22 +1,21 @@
 import { createSlice, createAsyncThunk, createAction } from "@reduxjs/toolkit";
-import blogCategoryService from "./blogcategoryService";
-
-export const getBlogCategorys = createAsyncThunk(
-  "blogCategory/get-blogcategories",
+import couponService from "./couponService";
+export const getAllCoupon = createAsyncThunk(
+  "coupon/get-coupons",
   async (thunkAPI) => {
     try {
-      return await blogCategoryService.getBlogCategory();
+      return await couponService.getCoupon();
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
   }
 );
 
-export const createBlogCategory = createAsyncThunk(
-  "blog-category/create-blog-category",
-  async (catblogData, thunkAPI) => {
+export const createCoupon = createAsyncThunk(
+  "coupon/create-coupon",
+  async (couponData, thunkAPI) => {
     try {
-      return await blogCategoryService.createBlogCategory(catblogData);
+      return await couponService.createCoupon(couponData);
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message || error);
     }
@@ -25,50 +24,50 @@ export const createBlogCategory = createAsyncThunk(
 export const resetState = createAction("Reset_all");
 
 const initialState = {
-  blogcategories: [],
-  createblogcategory: null,
+  coupons: [],
+  createcoupon: null,
   isError: false,
   isLoading: false,
   isSuccess: false,
   message: "",
 };
-export const blogCategorySlice = createSlice({
-  name: "user",
+export const couponSlice = createSlice({
+  name: "coupon",
   initialState,
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(getBlogCategorys.pending, (state) => {
+      .addCase(getAllCoupon.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(getBlogCategorys.fulfilled, (state, action) => {
+      .addCase(getAllCoupon.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isError = false;
         state.isSuccess = true;
-        state.blogcategories = action.payload;
+        state.coupons = action.payload;
       })
-      .addCase(getBlogCategorys.rejected, (state, action) => {
+      .addCase(getAllCoupon.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.isSuccess = false;
         state.message = action.payload || "Failed to fetch users";
       })
-      .addCase(createBlogCategory.pending, (state) => {
+      .addCase(createCoupon.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(createBlogCategory.fulfilled, (state, action) => {
+      .addCase(createCoupon.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isError = false;
         state.isSuccess = true;
-        state.createblogcategory = action.payload;
+        state.createcoupon = action.payload;
       })
-      .addCase(createBlogCategory.rejected, (state, action) => {
+      .addCase(createCoupon.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.isSuccess = false;
         state.message = action.payload || "Failed to fetch users";
       })
-      .addCase(resetState, () => initialState);;
+      .addCase(resetState, () => initialState);
   },
 });
-export default blogCategorySlice.reducer;
+export default couponSlice.reducer;

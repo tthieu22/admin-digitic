@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { AiOutlineDashboard } from "react-icons/ai";
 import { FaCartShopping, FaFirstOrder } from "react-icons/fa6";
 import { FaUser } from "react-icons/fa";
-import { SiBrandfolder } from "react-icons/si";
+import { SiBrandfolder, SiGooglemarketingplatform } from "react-icons/si";
 import { TbCategory } from "react-icons/tb";
 import {
   IoMdColorPalette,
@@ -14,6 +14,9 @@ import { Link, Outlet } from "react-router-dom";
 import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons";
 import { Button, Layout, Menu, theme } from "antd";
 import { useNavigate } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { RiCoupon2Fill } from "react-icons/ri";
 
 const { Header, Sider, Content } = Layout;
 const MainLayout = () => {
@@ -136,6 +139,24 @@ const MainLayout = () => {
               icon: <FaFirstOrder className="fs-4" />,
               label: "Enquiries",
             },
+            {
+              key: "marketing",
+              icon: <SiGooglemarketingplatform className="fs-4" />,
+              label: "Marketing",
+              children: [
+                {
+                  key: "coupon",
+                  icon: <RiCoupon2Fill className="fs-4" />,
+
+                  label: "Coupon",
+                },
+                {
+                  key: "coupon-list",
+                  icon: <RiCoupon2Fill className="fs-4" />,
+                  label: "Coupon List",
+                },
+              ],
+            },
           ]}
         />
       </Sider>
@@ -203,6 +224,18 @@ const MainLayout = () => {
             borderRadius: borderRadiusLG,
           }}
         >
+          <ToastContainer
+            position="top-right"
+            autoClose={1000}
+            hideProgressBar={false}
+            newestOnTop={true}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="light"
+          />
           <Outlet />
         </Content>
       </Layout>

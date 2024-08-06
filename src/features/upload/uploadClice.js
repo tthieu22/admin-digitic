@@ -1,12 +1,36 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk, createAction } from "@reduxjs/toolkit";
 import uploadService from "./uploadService";
-export const uploadImg = createAsyncThunk("upload/images", async (thunkAPI) => {
-  try {
-    return await uploadService.uploadImg();
-  } catch (error) {
-    return thunkAPI.rejectWithValue(error);
+
+export const uploadImg = createAsyncThunk(
+  "upload/images",
+  async (data, thunkAPI) => {
+    try {
+      const formData = new FormData();
+      for (let i = 0; i < data.length; i++) {
+        formData.append("image", data[i]);
+      }
+      return await uploadService.uploadImg(formData);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(
+        error.message || "Failed to upload images"
+      );
+    }
   }
-});
+);
+export const deleteImg = createAsyncThunk(
+  "delete/images",
+  async (id, thunkAPI) => {
+    try {
+      return await uploadService.deleteImg(id);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(
+        error.message || "Failed to delete images"
+      );
+    }
+  }
+);
+export const resetState = createAction("Reset_all");
+
 const initialState = {
   images: [],
   isError: false,
@@ -35,8 +59,26 @@ export const uploadSlice = createSlice({
         state.isLoading = false;
         state.isError = true;
         state.isSuccess = false;
-        state.message = action.payload || "Failed to fetch users";
-      });
+        state.message = action.payload || "Failed to upload images";
+      })
+      .addCase(deleteImg.pending, (state) => {
+        state.isLoading = true;
+        state.isError = false;
+        state.message = "";
+      })
+      .addCase(deleteImg.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isError = false;
+        state.isSuccess = true;
+        state.images = [];
+      })
+      .addCase(deleteImg.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.isSuccess = false;
+        state.message = action.payload || "Failed to delete images";
+      })
+      .addCase(resetState, () => initialState);
   },
 });
 export default uploadSlice.reducer;

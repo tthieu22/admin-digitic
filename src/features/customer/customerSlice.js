@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk, createAction } from "@reduxjs/toolkit";
 import customerService from "./customerService";
 export const getUSers = createAsyncThunk(
   "customer/get-customers",
@@ -17,6 +17,7 @@ const initialState = {
   isSuccess: false,
   message: "",
 };
+export const resetState = createAction("Reset_all");
 export const customerSlice = createSlice({
   name: "user",
   initialState,
@@ -39,7 +40,8 @@ export const customerSlice = createSlice({
         state.isError = true;
         state.isSuccess = false;
         state.message = action.payload || "Failed to fetch users";
-      });
+      })
+      .addCase(resetState, () => initialState);
   },
 });
 export default customerSlice.reducer;
